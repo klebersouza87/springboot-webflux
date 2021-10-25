@@ -1,6 +1,7 @@
 package com.apirest.webflux.controller;
 
 import java.time.Duration;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -37,6 +38,13 @@ public class PlaylistController {
 	
 	@PostMapping
 	public Mono<Playlist> save(@RequestBody Playlist playlist) {
+		Consumer<Playlist> play = Playlist::getNome;
+		play.accept(playlist);
+		
+		Runnable runnable = playlist::getNome;
+		runnable.run();
+		
+		
 		return playlistService.save(playlist);
 	}
 	
