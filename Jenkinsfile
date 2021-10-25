@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Build') {
 //             agent {
@@ -7,6 +7,11 @@ pipeline {
 //             }
             steps {
                 sh "mvn package -Dmaven.test.skip=true"
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "mvn clean install"
             }
         }
     }
